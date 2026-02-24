@@ -1,3 +1,4 @@
+import Footer from "@/component/Footer";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
