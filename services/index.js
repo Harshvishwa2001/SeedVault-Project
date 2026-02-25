@@ -1,17 +1,18 @@
 const express = require('express');
-const { default: mongoose } = require('mongoose');
+const { mongoose } = require('mongoose');
 const UserModel = require('./model/User');
 const cors = require('cors')
 const app = express();
 const port = 5000;
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
+const { default: contactModel } = require('./model/Contact');
 
 app.use(express.json());
 
 app.use(cors({
     origin: 'http://localhost:3000',
-    methods: ['GET', 'POST'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 }));
 
@@ -51,6 +52,25 @@ app.post('/api/register', async (req, res) => {
     }
 });
 
+app.get('/api/register', async (req, res) => {
+    try {
+        const allUsers = await UserModel.find().sort({ createdAt: -1 });
+        return res.status(200).json({
+            success: true,
+            message: "All Users retrieved successfully",
+            count: allUsers.length,
+            data: allUsers
+        });
+    } catch (error) {
+        console.log("Error fetching users: ", error);
+        return res.status(500).json({
+            success: false,
+            message: "Failed to fetch users. Please try again later.",
+            error: error.message
+        });
+    }
+});
+
 app.post('/api/login', async (req, res) => {
     try {
 
@@ -69,7 +89,74 @@ app.post('/api/login', async (req, res) => {
     } catch (err) {
         res.status(500).json({ message: "Server Error" });
     }
+});
+
+
+app.post('/api/contact', async (req, res) => {
+    try {
+        const { name, email, subject, message } = req.body;
+        const response = new contactModel({ name, email, subject, message });
+        await response.save();
+
+        return res.status(201).json({
+            success: true,
+            message: "Message sent successfully!",
+            data: response
+        });
+    } catch (error) {
+        console.log("Not Sending message : ", error);
+        return res.status(401).json({
+            success: false,
+            message: "Failed to send message. Please try again later.",
+            data: error.message
+        });
+    }
 })
+
+app.get('/api/contact', async (req, res) => {
+    try {
+        const messages = await contactModel.find().sort({ createdAt: -1 });
+        return res.status(201).json({
+            success: true,
+            message: "All Message",
+            count: messages.length,
+            data: messages
+        })
+    } catch (error) {
+        console.log("Error fetching messages", error);
+        return res.status(401).json({
+            success: false,
+            message: "Error fetching messages",
+            data: error.message
+        })
+    }
+})
+
+app.delete('/api/contact/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deletemessage = await contactModel.findByIdAndDelete(id);
+
+        if (!deletemessage) {
+            return res.status(404).json({
+                success: false,
+                message: "Message not found"
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "Message was deleted",
+        });
+    } catch (error) {
+        console.error("Delete Error:", error);
+        return res.status(500).json({
+            success: false,
+            message: "Failed to delete message",
+            error: error.message
+        });
+    }
+});
 
 app.listen(port, () => {
     console.log(`Running server on this port ${port}`)

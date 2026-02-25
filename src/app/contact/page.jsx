@@ -1,13 +1,51 @@
 'use client'
-import React from 'react'
-import { Mail, Phone, MapPin, Send, MessageSquare, Clock } from 'lucide-react'
+import React, { useState } from 'react'
+import { Mail, Phone, MapPin, Send, MessageSquare, Clock, ChevronDown } from 'lucide-react'
 import Header from '@/component/Header'
 import Footer from '@/component/Footer'
+import axios from 'axios'
+import toast from 'react-hot-toast'
 
 export default function ContactPage() {
+    const [loading, setLoading] = useState(false);
+    const [contactForm, setContactForm] = useState({
+        name: "",
+        email: "",
+        subject: "Seed Inquiry",
+        message: ""
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setContactForm((prev) => ({
+            ...prev, [name]: value
+        }));
+    }
+
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        if (loading) return; // Prevent double submission
+        setLoading(true);
+
+        try {
+            const response = await axios.post('http://localhost:5000/api/contact', contactForm);
+            if (response.data.success) {
+                toast.success('Message sent successfully!');
+                setContactForm({ name: "", email: "", subject: "Seed Inquiry", message: "" });
+            } else {
+                toast.error(response.data.message || "Submission rejected by server");
+            }
+        } catch (error) {
+            console.log("Submission Error", error);
+            toast.error(error.response?.data?.message || "Something went wrong. Please try again.");
+        } finally {
+            setLoading(false); // Re-enable button
+        }
+    }
+
     return (
         <>
-        <Header/>
+            <Header />
             <div className="bg-[#FDFDFC] min-h-screen pt-32 pb-20">
                 <div className="max-w-7xl mx-auto px-6">
 
@@ -62,48 +100,79 @@ export default function ContactPage() {
 
                         {/* Right Side: Contact Form */}
                         <div className="lg:col-span-3">
-                            <form className="bg-white p-10 lg:p-14 rounded-[3.5rem] border border-slate-100 shadow-2xl shadow-slate-200/50 space-y-8">
+                            <form onSubmit={onSubmit} className="bg-white p-10 lg:p-14 rounded-[3.5rem] border border-slate-100 shadow-2xl shadow-slate-200/50 space-y-8">
                                 <div className="grid md:grid-cols-2 gap-8">
                                     <div className="space-y-2">
                                         <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Full Name</label>
                                         <input
                                             type="text"
+                                            name='name'
+                                            value={contactForm.name}
+                                            onChange={handleChange}
                                             placeholder="John Doe"
-                                            className="w-full bg-slate-50 border-none rounded-2xl p-4 focus:ring-2 focus:ring-emerald-500/20 transition-all font-medium"
+                                            className="w-full bg-slate-50 border-none rounded-2xl p-4 pr-12 focus:ring-2 focus:ring-emerald-500/20 transition-all font-medium text-slate-900 outline-none appearance-none cursor-pointer"
                                         />
                                     </div>
                                     <div className="space-y-2">
                                         <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Email Address</label>
                                         <input
                                             type="email"
+                                            name='email'
+                                            value={contactForm.email}
+                                            onChange={handleChange}
                                             placeholder="john@farm.com"
-                                            className="w-full bg-slate-50 border-none rounded-2xl p-4 focus:ring-2 focus:ring-emerald-500/20 transition-all font-medium"
+                                            className="w-full bg-slate-50 border-none rounded-2xl p-4 pr-12 focus:ring-2 focus:ring-emerald-500/20 transition-all font-medium text-slate-900 outline-none appearance-none cursor-pointer"
                                         />
                                     </div>
                                 </div>
 
                                 <div className="space-y-2">
                                     <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Subject</label>
-                                    <select className="w-full bg-slate-50 border-none rounded-2xl p-4 focus:ring-2 focus:ring-emerald-500/20 transition-all font-medium text-slate-500">
-                                        <option>Seed Inquiry</option>
-                                        <option>Distribution Partnership</option>
-                                        <option>Technical Support</option>
-                                        <option>Other</option>
-                                    </select>
+                                    <div className="group relative">
+                                        <select
+                                            name='subject'
+                                            value={contactForm.subject}
+                                            onChange={handleChange}
+                                            className="w-full bg-slate-50 border-none rounded-2xl p-4 pr-12 focus:ring-2 focus:ring-emerald-500/20 transition-all font-medium text-slate-900 outline-none appearance-none cursor-pointer"
+                                        >
+                                            <option value="" disabled>Select a subject</option>
+                                            <option value="Seed Inquiry">Seed Inquiry</option>
+                                            <option value="Distribution Partnership">Distribution Partnership</option>
+                                            <option value="Technical Support">Technical Support</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+
+                                        {/* Custom Arrow Icon */}
+                                        <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                                            <ChevronDown className='text-slate-500' size={20} />
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div className="space-y-2">
                                     <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Your Message</label>
                                     <textarea
+                                        name='message'
+                                        value={contactForm.message}
+                                        onChange={handleChange}
                                         rows="5"
                                         placeholder="How can we help your harvest?"
-                                        className="w-full bg-slate-50 border-none rounded-2xl p-4 focus:ring-2 focus:ring-emerald-500/20 transition-all font-medium resize-none"
+                                        className="w-full bg-slate-50 border-none rounded-2xl p-4 pr-12 focus:ring-2 focus:ring-emerald-500/20 transition-all font-medium text-slate-900 outline-none appearance-none cursor-pointer"
                                     ></textarea>
                                 </div>
 
-                                <button className="group flex items-center justify-center gap-3 w-full bg-slate-900 hover:bg-emerald-600 text-white py-5 rounded-2xl font-black transition-all active:scale-[0.98]">
-                                    <span>Send Message</span>
-                                    <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                                <button
+                                    type="submit"
+                                    disabled={loading} // FIXED: Disable button while loading
+                                    className={`group flex items-center justify-center gap-3 w-full py-5 rounded-2xl font-black transition-all active:scale-[0.98] ${loading ? 'bg-slate-400 cursor-not-allowed' : 'bg-slate-900 hover:bg-emerald-600 text-white'}`}>
+                                    {loading ? (
+                                        <span className="animate-pulse">Sending...</span>
+                                    ) : (
+                                        <>
+                                            <span>Send Message</span>
+                                            <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                                        </>
+                                    )}
                                 </button>
                             </form>
                         </div>
@@ -111,7 +180,7 @@ export default function ContactPage() {
                     </div>
                 </div>
             </div>
-            <Footer/>
+            <Footer />
         </>
     )
 }

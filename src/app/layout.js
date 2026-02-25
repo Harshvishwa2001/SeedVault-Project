@@ -1,6 +1,7 @@
 import Footer from "@/component/Footer";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,6 +24,25 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Toaster
+          position="top-center"
+          reverseOrder={false}
+          toastOptions={{
+            // Custom styling to match your emerald theme
+            duration: 5000,
+            style: {
+              background: '#334155', // Slate-700
+              color: '#fff',
+              borderRadius: '16px',
+            },
+            success: {
+              iconTheme: {
+                primary: '#10b981', // Emerald-500
+                secondary: '#fff',
+              },
+            },
+          }}
+        />
         {children}
       </body>
     </html>

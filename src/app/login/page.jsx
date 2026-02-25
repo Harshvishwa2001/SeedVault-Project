@@ -43,7 +43,10 @@ export default function LoginPage() {
             const { token, user } = response.data;
             localStorage.setItem("token", token);
             localStorage.setItem("User data", JSON.stringify(user));
+            localStorage.setItem('user', JSON.stringify(response.data.user));
 
+            // 2. BROADCAST THE EVENT (This is what you're likely missing)
+            window.dispatchEvent(new Event('userLogin'));
             toast.success("Sucessful login Session active for 10 hours.");
             router.push('/')
         } catch (err) {
