@@ -25,14 +25,14 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Toaster
-          position="top-center"
+          position="top-right"
           reverseOrder={false}
           toastOptions={{
             // Custom styling to match your emerald theme
             duration: 5000,
             style: {
-              background: '#334155', // Slate-700
-              color: '#fff',
+              background: '#fff', // Slate-700
+              color: '#334155',
               borderRadius: '16px',
             },
             success: {
