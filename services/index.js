@@ -8,8 +8,6 @@ require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const { default: contactModel } = require('./model/Contact');
 const Seed = require('./model/uploadSeed');
-import dotenv from 'dotenv';
-dotenv.config();
 
 app.use(express.json());
 
@@ -20,9 +18,9 @@ const Order = require('./model/Order');
 
 // Configure Cloudinary with your credentials
 cloudinary.config({
-    cloud_name: process.env.CLOUD_NAME,
-    api_key: process.env.CLOUD_API_KEY,
-    api_secret: process.env.CLOUD_API_SECERT
+    cloud_name: "duo6h5j7h",
+    api_key: "344887171935246",
+    api_secret: "UbK9aWFftC8a5pRUoxBAm5RLAbg"
 });
 
 // Set up storage engine
