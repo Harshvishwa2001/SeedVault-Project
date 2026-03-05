@@ -76,27 +76,6 @@ export default function Features() {
                                 </p>
                             </div>
                         ))}
-
-                        {/* Security Feature Full Width */}
-                        <div className="md:col-span-3 bg-slate-900 rounded-[3rem] p-10 md:p-16 text-white overflow-hidden relative group">
-                            <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-10">
-                                <div className="max-w-md">
-                                    <div className="flex items-center gap-3 text-emerald-400 mb-6">
-                                        <ShieldCheck size={32} />
-                                        <span className="font-black uppercase tracking-widest text-xs">Certified Quality</span>
-                                    </div>
-                                    <h4 className="text-3xl md:text-4xl font-black mb-4">Blockchain Verified Seeds</h4>
-                                    <p className="text-slate-400 font-medium">
-                                        Trace the journey of your seeds from the parent lab to your field with our secure tracking system. Download certificates instantly.
-                                    </p>
-                                </div>
-                                <button className="bg-white text-slate-900 px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-emerald-500 hover:text-white transition-all">
-                                    View Security Standards
-                                </button>
-                            </div>
-                            {/* Decorative Background Element */}
-                            <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-emerald-500/10 rounded-full blur-[100px] group-hover:bg-emerald-500/20 transition-all duration-700" />
-                        </div>
                     </div>
                 </div>
                 <FAQ />
@@ -105,9 +84,6 @@ export default function Features() {
         </>
     )
 }
-
-
-
 
 const FAQ = () => {
     const faqs = [

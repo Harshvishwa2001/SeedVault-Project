@@ -230,7 +230,7 @@ export default function SeedCatalog() {
         <>
             <Header />
             <section className="py-30 bg-[#FDFDFC] min-h-screen">
-                <div className="max-w-7xl mx-auto px-6">
+                <div className="max-w-7xl mx-auto px-6 py-6">
 
                     {/* Header with Comparison Counter */}
                     <div className="mb-12 space-y-6">
@@ -389,7 +389,7 @@ export default function SeedCatalog() {
                             {/* Left: Image & Badge Section */}
                             <div className="w-full md:w-2/5 h-64 md:h-auto relative bg-slate-100">
                                 <img src={selectedSeed.image} className="w-full h-full object-cover" alt={selectedSeed.name} />
-                                <div className="absolute bottom-6 left-6 right-6 p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20">
+                                <div className="absolute bottom-6 left-6 right-6 p-4 bg-slate-900/70 backdrop-blur-md rounded-2xl border border-white/20">
                                     <p className="text-white/80 text-[10px] font-black uppercase tracking-widest mb-1">Stock Status</p>
                                     <div className="flex items-center gap-2">
                                         <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
