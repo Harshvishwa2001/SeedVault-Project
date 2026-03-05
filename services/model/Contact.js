@@ -18,7 +18,7 @@ const contactSchema = new mongoose.Schema({
         type: String,
         required: true
     }
-}, { timestamps: true });
+}, { timestamps: true },{ bufferCommands: false });
 
 // Using 'Contact' (Capitalized) is the industry standard for models
 const contactModel = mongoose.models.contact || mongoose.model('contact', contactSchema);

@@ -69,7 +69,7 @@ export default function ContactPage() {
                                     </div>
                                     <div>
                                         <h4 className="text-sm font-black uppercase tracking-widest text-slate-400 mb-1">Email Us</h4>
-                                        <p className="text-xl font-bold text-slate-900">support@seedvault.com</p>
+                                        <p className="text-xl font-bold text-slate-900">support@SeedAdult.com</p>
                                         <p className="text-slate-500 font-medium">Response within 24 hours</p>
                                     </div>
                                 </div>

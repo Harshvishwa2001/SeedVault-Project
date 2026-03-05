@@ -75,7 +75,7 @@ export default function ChooseSeed() {
                 <div className="slider text-center mb-20">
                     <h2 className="text-xs font-black uppercase tracking-[0.5em] text-emerald-600 mb-4">The Ecosystem</h2>
                     <h1 className="text-5xl lg:text-6xl font-black text-slate-900 tracking-tight">
-                        Why Choose <span className="text-emerald-600">SeedVault?</span>
+                        Why Choose <span className="text-emerald-600">SeedAdult?</span>
                     </h1>
                     <p className="text-lg lg:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed font-medium py-6">
                         Empowering farmers with technology-driven solutions for better agricultural outcomes

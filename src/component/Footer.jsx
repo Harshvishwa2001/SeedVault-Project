@@ -17,7 +17,7 @@ export default function Footer() {
               <div className="w-10 h-10 bg-[#00c452] rounded-xl flex items-center justify-center text-white">
                 <Sprout size={22} />
               </div>
-              <span className="text-2xl font-black tracking-tight text-white">SeedVault</span>
+              <span className="text-2xl font-black tracking-tight text-white">SeedAdult</span>
             </div>
             <p className="text-slate-500 font-medium leading-relaxed">
               A professional ecosystem for high-quality agricultural seeds and smart farming solutions.
@@ -48,7 +48,7 @@ export default function Footer() {
         {/* Simple Bottom Bar */}
         <div className="pt-8 border-t border-slate-50 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-slate-100 text-sm font-medium">
-            © {currentYear} SeedVault. Verified Agricultural Platform.
+            © {currentYear} SeedAdult. Verified Agricultural Platform.
           </p>
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />

@@ -66,7 +66,7 @@ export default function CreateUser() {
                 <div className="w-full max-w-md">
                     <div className="mb-12">
                         <h2 className="text-3xl font-extrabold text-slate-900 mb-3 tracking-tight">
-                            Create A User SeedVault
+                            Create A User SeedAdult
                         </h2>
                     </div>
 
@@ -154,10 +154,10 @@ export default function CreateUser() {
                     </div>
 
                     <h1 className="text-4xl lg:text-5xl font-black italic tracking-tight text-slate-900 mb-4">
-                        Create A User SeedVault
+                        Create A User SeedAdult
                     </h1>
                     <p className="text-slate-500 text-lg max-w-sm font-medium leading-relaxed">
-                        Create to access the User SeedVault.
+                        Create to access the User SeedAdult.
                     </p>
                 </div>
             </div>

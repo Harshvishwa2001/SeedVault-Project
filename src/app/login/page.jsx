@@ -76,10 +76,10 @@ export default function LoginPage() {
                     </div>
 
                     <h1 className="text-4xl lg:text-5xl font-black italic tracking-tight text-slate-900 mb-4">
-                        SeedVault Login
+                        SeedAdult Login
                     </h1>
                     <p className="text-slate-500 text-lg max-w-sm font-medium leading-relaxed">
-                        Sign in to access the SeedVault management.
+                        Sign in to access the SeedAdult management.
                     </p>
                 </div>
             </div>
@@ -89,7 +89,7 @@ export default function LoginPage() {
                 <div className="w-full max-w-md">
                     <div className="mb-12">
                         <h2 className="text-3xl font-extrabold text-slate-900 mb-3 tracking-tight">
-                            SeedVault  Login
+                            SeedAdult  Login
                         </h2>
                     </div>
 

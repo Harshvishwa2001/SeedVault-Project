@@ -7,8 +7,32 @@ const port = 5000;
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const { default: contactModel } = require('./model/Contact');
+const Seed = require('./model/uploadSeed');
 
 app.use(express.json());
+
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const multer = require('multer');
+const Order = require('./model/Order');
+
+// Configure Cloudinary with your credentials
+cloudinary.config({
+    cloud_name: 'duo6h5j7h',
+    api_key: '344887171935246',
+    api_secret: 'UbK9aWFftC8a5pRUoxBAm5RLAbg'
+});
+
+// Set up storage engine
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'seed_vault',
+        allowed_formats: ['jpg', 'png', 'jpeg'],
+    },
+});
+
+const upload = multer({ storage: storage });
 
 app.use(cors({
     origin: 'http://localhost:3000',
@@ -91,6 +115,36 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
+// DELETE Route
+app.delete('/api/register/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        // Attempt to find and remove the user
+        const deletedUser = await UserModel.findByIdAndDelete(id);
+
+        if (!deletedUser) {
+            return res.status(404).json({
+                success: false,
+                message: "Identity not found in the vault."
+            });
+        }
+
+        // Return success: true so the frontend updates its state
+        res.status(200).json({
+            success: true,
+            message: "User successfully purged from database.",
+            data: deletedUser
+        });
+
+    } catch (error) {
+        console.error("Backend Delete Error:", error);
+        res.status(500).json({
+            success: false,
+            message: "Internal Server Error during deletion."
+        });
+    }
+});
 
 app.post('/api/contact', async (req, res) => {
     try {
@@ -155,6 +209,110 @@ app.delete('/api/contact/:id', async (req, res) => {
             message: "Failed to delete message",
             error: error.message
         });
+    }
+});
+
+app.post('/api/seeds', upload.single('image'), async (req, res) => {
+    try {
+        const imagePath = req.file ? req.file.path : req.body.image;
+        const seedData = {
+            ...req.body,
+            image: imagePath,
+            // Optional: Ensure numbers are numbers
+            price: req.body.price ? Number(req.body.price) : 0,
+            rating: req.body.rating ? Number(req.body.rating) : 0
+        };
+
+        const newSeed = new Seed(seedData);
+        const savedSeed = await newSeed.save();
+
+        res.status(201).json(savedSeed);
+    } catch (error) {
+        // Detailed error logging helps you debug faster
+        console.error("Upload Error:", error);
+        res.status(400).json({
+            message: "Database or Upload Error",
+            error: error.message
+        });
+    }
+});
+
+app.put('/api/seeds/:id', upload.single('image'), async (req, res) => {
+    try {
+        const { id } = req.params;
+        let updateData = { ...req.body };
+
+        if (req.file) {
+            updateData.image = req.file.path;
+        }
+
+        const updatedSeed = await Seed.findByIdAndUpdate(id, updateData, {
+            new: true, // Returns the modified document
+            runValidators: true
+        });
+
+        if (!updatedSeed) {
+            return res.status(404).json({ message: "Seed not found" });
+        }
+        res.json(updatedSeed);
+    } catch (error) {
+        res.status(400).json({ message: "Update failed", error: error.message });
+    }
+});
+
+app.get('/api/seeds', async (req, res) => {
+    try {
+        const seeds = await Seed.find().sort({ createdAt: -1 });
+        res.json(seeds);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+app.delete('/api/seeds/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deletedSeed = await Seed.findByIdAndDelete(id);
+
+        if (!deletedSeed) {
+            return res.status(404).json({ message: "Seed not found" });
+        }
+
+        res.status(200).json({ message: "Seed deleted successfully" });
+    } catch (error) {
+        res.status(500).json({ message: "Delete failed", error: error.message });
+    }
+});
+
+// POST: Save a new order 
+app.post('/api/orders', async (req, res) => {
+    try {
+        const newOrder = new Order(req.body);
+        const savedOrder = await newOrder.save();
+        res.status(201).json({ success: true, data: savedOrder });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+});
+
+// GET: Fetch all orders (for your Admin Dashboard)
+app.get('/api/orders', async (req, res) => {
+    try {
+        const orders = await Order.find().sort({ createdAt: -1 });
+        res.status(200).json({ success: true, data: orders });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+});
+
+app.delete('/api/orders/:id', async (req, res) => {
+    try {
+        const deletedOrder = await Order.findByIdAndDelete(req.params.id);
+        if (!deletedOrder) return res.status(404).json({ message: "Not found" });
+        res.status(200).json({ success: true });
+    } catch (error) {
+        // This catch block triggers the 500 error
+        res.status(500).json({ message: error.message });
     }
 });
 

@@ -39,7 +39,7 @@ export default function AboutPage() {
                                 Modernizing the <span className="text-emerald-600">Roots</span> of Agriculture.
                             </h1>
                             <p className="text-xl text-slate-500 font-medium leading-relaxed">
-                                SeedVault was founded in 2024 to solve a simple problem: Giving every farmer access to high-yield, verified seeds regardless of their location.
+                                SeedAdult was founded in 2024 to solve a simple problem: Giving every farmer access to high-yield, verified seeds regardless of their location.
                             </p>
                         </div>
                     </div>
@@ -71,7 +71,7 @@ export default function AboutPage() {
                                     We believe technology should work for the soil.
                                 </h2>
                                 <p className="text-lg text-slate-500 leading-relaxed">
-                                    Traditional seed distribution is broken. Farmers often receive poor quality or fake seeds that lead to total harvest failure. <strong>SeedVault</strong> changes the narrative by providing a transparent, blockchain-verified marketplace for certified distributors.
+                                    Traditional seed distribution is broken. Farmers often receive poor quality or fake seeds that lead to total harvest failure. <strong>SeedAdult</strong> changes the narrative by providing a transparent, blockchain-verified marketplace for certified distributors.
                                 </p>
 
                                 <div className="space-y-4">

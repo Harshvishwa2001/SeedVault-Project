@@ -13,7 +13,7 @@ export default function Testimonials() {
         {
             name: "Rajesh Kumar",
             role: "Wheat Farmer, Punjab",
-            quote: "The HD-3086 variety from SeedVault gave me a 20% higher yield than local seeds. The technical data provided was spot on.",
+            quote: "The HD-3086 variety from SeedAdult gave me a 20% higher yield than local seeds. The technical data provided was spot on.",
             img: "https://api.dicebear.com/7.x/avataaars/svg?seed=Rajesh"
         },
         {

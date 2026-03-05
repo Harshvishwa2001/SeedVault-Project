@@ -57,7 +57,7 @@ export default function Header() {
                 {/* LOGO */}
                 <Link href="/" className="flex items-center gap-3 group">
                     <Sprout className="bg-emerald-600 text-white p-2 rounded-xl" size={40} />
-                    <span className="text-xl font-black text-slate-900">Seed<span className="text-emerald-600">Vault</span></span>
+                    <span className="text-xl font-black text-slate-900">Seed<span className="text-emerald-600">Adult</span></span>
                 </Link>
 
                 {/* NAV LINKS */}

@@ -37,7 +37,7 @@ export default function Improveseed() {
                             <span className="text-emerald-400">Your Harvest?</span>
                         </h1>
                         <p className="text-slate-400 text-lg lg:text-xl font-medium max-w-xl mx-auto leading-relaxed">
-                            Join thousands of farmers who are already using SeedVault to make smarter seed choices.
+                            Join thousands of farmers who are already using SeedAdult to make smarter seed choices.
                         </p>
                     </div>
 
