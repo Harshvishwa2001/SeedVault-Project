@@ -169,7 +169,7 @@ export default function UserDetails() {
                         <div className="grid grid-cols-2 gap-6">
                             <div className="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm">
                                 <Hash className="text-[#10B981] mb-6" size={24} />
-                                <h5 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Vault Identifier</h5>
+                                <h5 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Seeds Identifier</h5>
                                 <p className="text-lg font-mono font-bold text-slate-800 break-all">{selectedUser._id}</p>
                             </div>
 

@@ -54,7 +54,7 @@ export default function SeedCatalog() {
                 <div className="mb-12 space-y-6">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div>
-                            <h1 className="text-4xl font-black text-slate-900 tracking-tight">Vault <span className="text-emerald-600">Inventory</span></h1>
+                            <h1 className="text-4xl font-black text-slate-900 tracking-tight">Seeds <span className="text-emerald-600">Inventory</span></h1>
                             <p className="text-slate-500 font-medium text-sm mt-1">
                                 {loading ? "Syncing with vault..." : `Showing ${filteredSeeds.length} verified seed varieties`}
                             </p>
